@@ -5,4 +5,4 @@ def say_hello():
 
 
 # Our function is defined above, so now we can 'call' it
-say_hello()
+say_hey()
