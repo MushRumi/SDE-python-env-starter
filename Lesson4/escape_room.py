@@ -1,8 +1,11 @@
 import random
+import sys
+hunger = 10
 name = input('What is your name? ')
 print(f'Welcome to your dungeon escape room, {name}!')
 print('')
-
+print('You are in pursuit of a mythical treasure. Many have come before you with no success, or worse.')
+print('')
 #first room (choosing 1 of 3 doors)
 def room1():
     print('You are met with three runic doors labeled 1, 2, and 3.')
@@ -23,6 +26,7 @@ def room1():
         print('')
         print('You fall into a pit... Better luck next time.')
         print('')
+        sys.exit()
     else:
         print('')
         print('Not a valid choice! Your choices are 1, 2, and 3.')
@@ -81,26 +85,41 @@ def announce_walls(current_row, current_col):
     if room[current_row][current_col + 1] == 'x': # right
         print('There is a wall in the right direction')
 
-def move(current_row, current_col, direction):
+def move(current_row, current_col, direction, hunger):
     new_row = current_row
     new_col = current_col
 
-    if direction == 'up':
+    if direction == 'up' or direction == 'u':
         new_row -= 1
-    elif direction == 'down':
+        hunger -= 1
+    elif direction == 'down' or direction == 'd':
         new_row += 1
-    elif direction == 'left':
+        hunger -= 1
+    elif direction == 'left' or direction == 'l':
         new_col -= 1
-    elif direction == 'right':
+        hunger -= 1
+    elif direction == 'right' or direction == 'r':
         new_col += 1
+        hunger -= 1
     else:
         print(f'You can not move {direction_choice}. Try up, down, left, or right.')
 
     if room[new_row][new_col] == 'x':  # Hit a wall!
         print('You can not move that way, there is a wall.')
         return current_row, current_col
+    
+    if hunger == 0:
+        print('You fall apart.')
+        sys.exit()
+    if hunger == 9:
+        print('A dreadful aura has entered the room.')
+    if hunger == 7:
+        print('Your skin is stinging and turning ill.')
+    if hunger <= 5:
+        print('Your legs feel like static. You can barely make a step.')
+        hunger -= 1
 
-    return new_row, new_col
+    return new_row, new_col, hunger
 
 player_row = 2
 player_col = 2
@@ -108,7 +127,7 @@ player_col = 2
 
 while room[player_row][player_col] != 'e':
     direction_choice = input("What direction would you like to move? Your options are: up, down, left, right: ")
-    player_row, player_col = move(player_row, player_col, direction_choice)
+    player_row, player_col, hunger = move(player_row, player_col, direction_choice, hunger)
     print(f'New row is {player_row}')
     print(f'New col is {player_col}')
     announce_walls(player_row, player_col)
