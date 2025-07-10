@@ -15,15 +15,39 @@ def display_inventory():
 def exit_inventory():
     exit()
 
+def add_item():
+    print("\nadding new product")
+    itemName = input("enter product name: ")
+    itemType = input("enter product type: ")
+    price = float(input("enter product price: "))
+    total = int(input("enter number in stock: "))
+    item_id = random.randint(1000, 9999)
+
+    new_item = Product(item_id, itemName, price, total, itemType)
+    store_inventory.append(new_item)
+    print(f"\nProduct '{itemName}' added with the following ID: {item_id}.\n")
+    
+def remove_item():
+    try:
+        user_removal = int(input("enter ID of item you want removed: "))
+        for item in store_inventory:
+            if item.id == user_removal:
+                store_inventory.remove(item)
+                break
+    except ValueError:
+        print("type an integer instead.")
+
+
+
 
 def user_selection():
     user_choice = int(input("Enter a number between 1-4: "))
     if user_choice == 1:
         display_inventory()
     elif user_choice == 2:
-        print('add a new product')
+        add_item()
     elif user_choice == 3:
-        print('remove a product')
+        remove_item()
     elif user_choice == 4:
         print("Program ends.")
         exit_inventory()
