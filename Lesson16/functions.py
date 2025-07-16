@@ -1,9 +1,35 @@
+import spiderDraw as sd
+import random
 
 
 
 # Prompts user for letter guess. Checks through the secret word to see if it contains the letter guessed by the user. Returns the number of wrong guesses
 #Takes in the correct letter list, incorrect letter list, secret word and the number of tries as parameters.
-def check_word():
+def check_word(correctLetterList, incorrectLetterList, secretWord, numberOfTries):
+  validGuess = False
+  userGuess = ""
+  while not validGuess:
+    userGuess = input("Please guess a letter. ")
+    if len(userGuess) > 1 or len(userGuess) == 0:
+      print("Please guess only a single letter. ")
+      continue
+    if not userGuess.isalpha():
+      print("Please only guess a letter, no symbols. ")
+      continue
+    if userGuess in correctLetterList or userGuess in (incorrectLetterList):
+      print(f"You have already guessed the letter {userGuess}, please choose another letter.")
+
+    validGuess = True
+
+    if userGuess in secretWord:
+      print(f"The letter {userGuess} is in the word!")
+      correctLetterList.append(userGuess)
+      return numberOfTries
+    else:
+      print(f"The letter {userGuess} is not in the word :(")
+      incorrectLetterList.append(userGuess)
+      return numberOfTries + 1
+
   pass
   
 
@@ -49,3 +75,4 @@ def introduction():
     pass
 
 generate_word():
+  pass
