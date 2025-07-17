@@ -40,7 +40,12 @@ def check_word(correctLetterList, incorrectLetterList, secretWord, numberOfTries
 # Returns the word to the console containing "_" for any letter not guessed by the user.
 #Takes in the correct word and the list of correct guesses as parameters
 def print_word(mysteryWord):
-    word = "_ " * len(mysteryWord
+    display = ""
+    for letter in secretWord:
+      display += letter + " "
+    else:
+      dispaly += "_ "
+    print(display.strip())
 
     pass
 
@@ -49,7 +54,7 @@ def print_word(mysteryWord):
 # Prints spider from the spider drawing functions in the spiderDraw.py file. Takes the number of wrong guesses and the list of spider drawing functions as parameters.
 
 def print_spider(numIncorrectGuess):
-    sd.listOfSpiders = [numIncorrectGuess]()
+    sd.listOfSpiders[numIncorrectGuess]()
 
     pass
   
@@ -63,16 +68,14 @@ def generate_word():
   word = random.choice(wordlist) #Choose a random word from the list
   return word
 
-  pass
-
 
   
 
 #Put the introduction code/input player name into here 
 def introduction():
-    #
-
+    name = input("What is your name? ")
+    print(f'Hello, {name}!')
     pass
 
-generate_word():
-  pass
+generate_word()
+pass
